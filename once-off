@@ -1,0 +1,10 @@
+#!/usr/bin/perl -w
+use strict;
+use warnings;
+
+my $searchPath = '~/Pictures/wallpapers';   # Set to the directory you want to have searched for photos
+my @photos = `find $searchPath -type f | grep [jJ][pP][eE]*[gG]`;             
+chomp(@photos);
+my $photo;
+$photo = $photos[rand($#photos)];
+`gsettings set org.gnome.desktop.background picture-uri "file:///$photo"`;
