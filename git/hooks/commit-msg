@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Comment commit hook to ensure you specify the JIRA Ticket number
+# HOW TO GET IT TO WORK
+# 1. Open a terminal and navigate to your project directory
+# 2. Copy this file into your .git/hooks/ directory
+# 3. To ensure git executes it make sure it's executable chmod +x .git/hooks/commit-msg
+# 4. Test away
+
+# Search through the comment to ensure that it contains the correct format
+operations_ticket="$(grep '^OP-[09]\{3,20\}' "$1")"
+sprint_ticket="$(grep '^SPR-[09]\{3,20\}' "$1")"
+
+# Ensure that either type of ticket's reference is added
+if [ "$operations_ticket" == "" ] && [ "$sprint_ticket" == "" ]; then
+    echo "\n\nERROR: Jira reference not found\n"
+    echo "SPRINT TICKETS"
+    echo "The following format is required:\nSPR-<ticket number> ie: SPR-802 Comment...\n\n"
+    echo "OPS TICKETS"
+    echo "The following format is required:\nOP-<ticket number> ie: OP-802 Comment...\n\n"
+    exit 1
+fi
