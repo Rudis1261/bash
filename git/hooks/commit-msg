@@ -10,26 +10,26 @@ chmod +x .git/hooks/commit-msg
 INSTALLATION
 
 # Search through the comment to ensure that it contains the correct format
-operations_ticket="$(grep '^OP-[09]\{3,20\}' "$1")"
-sprint_ticket="$(grep '^SPR-[09]\{3,20\}' "$1")"
+operations_ticket="$(grep '^OP-[0-9]\{2,20\}' "$1")"
+sprint_ticket="$(grep '^SPR-[0-9]\{2,20\}' "$1")"
 
 # Ensure that either type of ticket's reference is added
 if [ "$operations_ticket" == "" ] && [ "$sprint_ticket" == "" ]; then
 	echo ""
 	echo ""
-    echo "ERROR: Jira reference not found"
-    echo ""
-    echo "SPRINT TICKETS"
-    echo ""
-    echo "The following format is required:"
-    echo "SPR-<ticket number> ie: SPR-802 Comment..."
-    echo ""
-    echo ""
-    echo "OPS TICKETS"
-    echo ""
-    echo "The following format is required:" 
-    echo "OP-<ticket number> ie: OP-802 Comment..."
-    echo ""
+	echo "ERROR: Jira reference not found"
 	echo ""
-    exit 1
+	echo "SPRINT TICKETS"
+	echo ""
+	echo "The following format is required:"
+	echo "SPR-<ticket number> ie: SPR-802 Comment..."
+	echo ""
+	echo ""
+	echo "OPS TICKETS"
+	echo ""
+	echo "The following format is required:" 
+	echo "OP-<ticket number> ie: OP-802 Comment..."
+	echo ""
+	echo ""
+	exit 1
 fi
